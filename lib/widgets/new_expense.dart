@@ -33,13 +33,18 @@ class _NewExpenseState extends State<NewExpense> {
           TextField(
             keyboardType: TextInputType.number,
             controller: _amountController,
-            decoration: InputDecoration(prefixText:'\$',label:Text('Amount')),
+            decoration: InputDecoration(
+              prefixText: '\$',
+              label: Text('Amount'),
+            ),
           ),
 
           Row(
             children: [
               TextButton(
-                onPressed: (){},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 child: const Text('Cancel'),
               ),
               ElevatedButton(
