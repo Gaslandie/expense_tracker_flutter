@@ -70,6 +70,8 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    //pour connaitre le width de notre ecran on utilise notre MediaQuery
+    final width = MediaQuery.of(context).size.width;
     Widget mainContent = const Center(
       child: Text('No expenses found.Start adding some!'),
     );
@@ -90,12 +92,18 @@ class _ExpensesState extends State<Expenses> {
           ),
         ],
       ),
-      body: Column(
+      //rendu conditionnel en fonction du width,pour portrait ou paysage
+      body: width < 600 ? Column(
         children: [
           Chart(expenses: _registeredExpenses),
           Expanded(child: mainContent),
         ],
-      ),
+      ) : Row(children: [
+        //on ajoute Expanded à notre Chart pour limiter le width à l'espace disponible dans notre Row
+        //Car dans notre Chart on a mis width double.infinity et Row aussi est width double.infinity, ce qui cause probleme
+            Expanded(child: Chart(expenses: _registeredExpenses)),
+            Expanded(child: mainContent),
+      ],),
     );
   }
 }

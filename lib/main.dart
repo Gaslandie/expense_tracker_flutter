@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/widgets/expenses.dart';
 
+//pour bloquer l'orientation de notre app: services.dart
+import 'package:flutter/services.dart';
+
 //va nous permettre d'avoir des couleurs derivées de notre seedColor pour les items de notre app
 var kColorScheme = ColorScheme.fromSeed(
   seedColor: const Color.fromARGB(255, 96, 59, 181),
@@ -14,49 +17,55 @@ var kDarkColorScheme = ColorScheme.fromSeed(
 );
 
 void main() {
-  runApp(
-    MaterialApp(
-      darkTheme: ThemeData.dark().copyWith(
-        colorScheme: kDarkColorScheme,
-         appBarTheme: const AppBarTheme().copyWith(
-          backgroundColor: kDarkColorScheme.onPrimaryContainer,
-          foregroundColor: kDarkColorScheme.primaryContainer,
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: kDarkColorScheme.primaryContainer,
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((
+  //   fn,
+  // ) {
+    //on met notre runApp dans cette fonction pour bloquer notre app sur portrait
+    runApp(
+      MaterialApp(
+        darkTheme: ThemeData.dark().copyWith(
+          colorScheme: kDarkColorScheme,
+          appBarTheme: const AppBarTheme().copyWith(
+            backgroundColor: kDarkColorScheme.onPrimaryContainer,
+            foregroundColor: kDarkColorScheme.primaryContainer,
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: kDarkColorScheme.primaryContainer,
+            ),
+          ),
+          textTheme: ThemeData().textTheme.copyWith(
+            titleLarge: TextStyle(
+              fontWeight: FontWeight.normal,
+              color: kDarkColorScheme.onSecondaryContainer,
+              fontSize: 14,
+            ),
           ),
         ),
-        textTheme: ThemeData().textTheme.copyWith(
-          titleLarge: TextStyle(
-            fontWeight: FontWeight.normal,
-            color: kDarkColorScheme.onSecondaryContainer,
-            fontSize: 14,
+        theme: ThemeData().copyWith(
+          colorScheme: kColorScheme,
+          appBarTheme: const AppBarTheme().copyWith(
+            backgroundColor: kColorScheme.onPrimaryContainer,
+            foregroundColor: kColorScheme.primaryContainer,
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: kColorScheme.primaryContainer,
+            ),
+          ),
+          textTheme: ThemeData().textTheme.copyWith(
+            titleLarge: TextStyle(
+              fontWeight: FontWeight.normal,
+              color: kColorScheme.onSecondaryContainer,
+              fontSize: 14,
+            ),
           ),
         ),
+        //themeMode pour avoir le controle sur le theme à appliquer
+        //themeMode: ThemeMode.system //default
+        home: Expenses(),
       ),
-      theme: ThemeData().copyWith(
-        colorScheme: kColorScheme,
-        appBarTheme: const AppBarTheme().copyWith(
-          backgroundColor: kColorScheme.onPrimaryContainer,
-          foregroundColor: kColorScheme.primaryContainer,
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: kColorScheme.primaryContainer,
-          ),
-        ),
-        textTheme: ThemeData().textTheme.copyWith(
-          titleLarge: TextStyle(
-            fontWeight: FontWeight.normal,
-            color: kColorScheme.onSecondaryContainer,
-            fontSize: 14,
-          ),
-        ),
-      ),
-      //themeMode pour avoir le controle sur le theme à appliquer
-      //themeMode: ThemeMode.system //default
-      home: Expenses(),
-    ),
-  );
+    );
+  // });
 }
