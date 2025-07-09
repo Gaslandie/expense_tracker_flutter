@@ -19,6 +19,12 @@ class ExpensesList extends StatelessWidget {
           //Dismiss est un widget qui permet de supprmier un widget avec les données associées à l'aide son key
           //ici on peut utiliser notre expenses[index] car c'est unique par item de notre liste
           Dismissible(
+            //Container car nous donne accès à certaines propriétés telles que color,
+            //colorScheme qu'on a avec notre color Scheme dans main, et on a accès à colorScheme.error qui est rouge
+            background: Container(
+              color: Theme.of(context).colorScheme.error,
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+            ),
             key: ValueKey(expenses[index]),
 
             //pour ce qu'on veut faire une fois le item supprimé

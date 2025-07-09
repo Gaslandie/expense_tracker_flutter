@@ -31,3 +31,27 @@ class Expense {
     return formatter.format(date);
   }
 }
+
+//pour notre chart, pour chaque categorie avoir le montant total des depenses
+class ExpenseBucket {
+  const ExpenseBucket({required this.category, required this.expenses});
+
+  //avec notre named contructeur forCategory, on va filter la listes des depenses
+  //en comparant avec la depense de notre category, le transformer en une liste au final avec
+  //notre toList();
+  ExpenseBucket.forCategory(List<Expense> allExpenses, this.category)
+    : expenses = allExpenses
+          .where((expense) => expense.category == category)
+          .toList();
+
+  final Category category;
+  final List<Expense> expenses;
+
+  double get totalExpenses {
+    double sum = 0;
+    for (final expense in expenses) {
+      sum += expense.amount;
+    }
+    return sum;
+  }
+}
